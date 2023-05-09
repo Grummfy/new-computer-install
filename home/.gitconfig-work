@@ -1,0 +1,11 @@
+[user]
+	name = <my firstname> <my lastname>
+	email = <my pro email>
+	signingkey = <my signkey id>
+
+[core]
+	sshCommand = ssh -i ~/.ssh/pro_git-id_ed25519 -F /dev/null
+
+[pull]
+	rebase = true
+

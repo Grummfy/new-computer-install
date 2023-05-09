@@ -1,0 +1,70 @@
+[includeIf "gitdir:~/workspace/work/"]
+  path = ~/.gitconfig-work
+[includeIf "gitdir:~/workspace/perso/"]
+  path = ~/.gitconfig-perso
+[includeIf "gitdir:~/workspace/foss/"]
+  path = ~/.gitconfig-perso
+[push]
+	default = simple
+[rebase]
+	stat = true
+[merge]
+	keepBackup = false
+	tool = meld
+#	diffuse
+#	diffuse -m
+#	conflictstyle = diff3
+[mergetool "mymeld"]
+#	cmd = meld --diff $BASE $LOCAL --diff $BASE $REMOTE --diff $LOCAL $BASE $REMOTE $MERGED
+	cmd = meld "$LOCAL" "$MERGED" "$REMOTE"
+	conflictstyle = diff3
+[mergetool "mymeld2"]
+	cmd = meld "$LOCAL" "$REMOTE"
+[mergetool "p4merge"]
+	cmd = p4merge '$BASE' '$LOCAL' '$REMOTE' '$MERGED'
+	trustExitCode = false
+[alias]
+	st = status
+	who = shortlog -sne
+
+	co = checkout
+	ci = commit
+	br = branch
+	coma = commit -am 
+	
+	pul = pull
+	pu = push
+	puf = push --force-with-lease
+
+	# cancel last commit
+	undo = reset --soft HEAD^
+
+	# last changes
+	changes = diff --name-status
+	diffstat = diff --stat
+
+	# Afficher un historique condensé des commits
+	oneline = log --pretty=oneline --abbrev-commit --graph --decorate
+
+	# Afficher les changements réalisés depuis le dernier pull
+	lc = !git oneline ORIG_HEAD.. --stat --no-merges
+
+	addm = !git-ls-files -m -z | xargs -0 git-add && git status					 # ajouter les fichiers modifiés.
+	addu = !git-ls-files -o --exclude-standard -z | xargs -0 git-add && git status  # ajouter les fichiers inconnus.
+	rmm  = !git ls-files -d -z | xargs -0 git-rm && git status					  # supprimer les fichiers marqués comme effacés.
+
+	rem-extra = "!yolo() { git remote add $1 git@github.com:$2.git; }; yolo"
+	
+	brol = "!git branch | grep -v '^*' | xargs git branch -d && git remote prune origin"
+	
+[url "https://"]
+	insteadOf = git://
+[rerere]
+#  replay recorded merge resolution
+	enabled = true
+[core]
+	excludesfile = ~/.gitignore
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = main

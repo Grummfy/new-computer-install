@@ -1,0 +1,3 @@
+# Install fresh ubuntu or anything
+
+Well I'm always froget some elements, so let's make some script for it ...

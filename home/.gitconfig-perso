@@ -1,0 +1,7 @@
+[user]
+	name = Grummfy
+	email = me@grummfy.be
+	signingkey = <my ggp perso id key>
+
+[core]
+	sshCommand = ssh -i ~/.ssh/perso_git-id_ed25519 -F /dev/null
